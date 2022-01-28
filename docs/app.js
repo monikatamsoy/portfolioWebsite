@@ -122,7 +122,7 @@ class App {
         let controller, controller1;
         
         function onSessionStart(){
-            self.spaceRoom.position.set(1,-1,-15);
+            // self.spaceRoom.position.set(1,-1,-15);
             // self.image.position.set(2,0,-1)
             // self.camera.add( self.image );
         }
@@ -133,7 +133,7 @@ class App {
         
         const btn = new ARButton( this.renderer, { onSessionStart, onSessionEnd });//, sessionInit: { optionalFeatures: [ 'dom-overlay' ], domOverlay: { root: document.body } } } );
         
-        // this.gestures = new ControllerGestures( this.renderer );
+        this.gestures = new ControllerGestures( this.renderer );
         // this.gestures.addEventListener( 'pan', (ev)=>{
         //     // console.log( ev );
         //     if (ev.initialise !== undefined){
@@ -196,27 +196,21 @@ class App {
             
         if(e.keyCode == 37 && this.camera.position.x >= -3 ) {
             this.camera.position.x -= 0.1;
-            console.log(this.camera.position)
         }
         else if(e.keyCode == 38 && this.camera.position.y <=4) {
             this.camera.position.y += 0.1;
-            console.log(this.camera.position)
 
     } else if(e.keyCode == 39 && this.camera.position.x <=3) {
         this.camera.position.x += 0.1;
-        console.log(this.camera.position)
 
     } else if(e.keyCode == 40 && this.camera.position.y >=0) {
         this.camera.position.y -= 0.1;
-        console.log(this.camera.position)
 
     } else if(e.keyCode == 32 && this.camera.position.z <= 14) {
         this.camera.position.z += 0.1;
-        console.log(this.camera.position)
 
     } else if(e.keyCode == 13 && this.camera.position.z >= -10 ) {
         this.camera.position.z -= 0.1;
-        console.log(this.camera.position)
 
     } 
     }
