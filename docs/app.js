@@ -122,9 +122,12 @@ class App {
         let controller, controller1;
         
         function onSessionStart(){
-            // self.spaceRoom.position.set(1,-1,-15);
-            // self.image.position.set(2,0,-1)
-            // self.camera.add( self.image );
+            // self.spaceRoom.scale.set(2,2,2)
+            // self.spaceRoom.position.set(0,-1,-);
+            // // self.image.position.set(2,0,-1)
+            // self.camera.position(  );
+            console.log(self.camera.position);
+            console.log(self.spaceRoom.position);
         }
         
         function onSessionEnd(){
@@ -144,15 +147,15 @@ class App {
         //     } 
         // });
 
-        // this.gestures.addEventListener( 'pinch', (ev)=>{
-        //     //console.log( ev );  
-        //     if (ev.initialise !== undefined){
-        //         self.startScale = self.image.scale.clone();
-        //     }else{
-        //         const scale = self.startScale.clone().multiplyScalar(ev.scale);
-        //         self.image.scale.copy( scale );
-        //     }
-        // });
+        this.gestures.addEventListener( 'pinch', (ev)=>{
+            //console.log( ev );  
+            if (ev.initialise !== undefined){
+                self.startScale = self.image.scale.clone();
+            }else{
+                const scale = self.startScale.clone().multiplyScalar(ev.scale);
+                self.image.scale.copy( scale );
+            }
+        });
         // this.gestures.addEventListener( 'rotate', (ev)=>{
         //     //      console.log( ev ); 
         //     if (ev.initialise !== undefined){
