@@ -122,8 +122,8 @@ class App {
         let controller, controller1;
         
         function onSessionStart(){
-            // self.spaceRoom.scale.set(2,2,2)
-            // self.spaceRoom.position.set(0,-1,-);
+            self.spaceRoom.scale.set(2,2,2)
+            self.spaceRoom.position.set(0,-1,0);
             // // self.image.position.set(2,0,-1)
             // self.camera.position(  );
             console.log(self.camera.position);
