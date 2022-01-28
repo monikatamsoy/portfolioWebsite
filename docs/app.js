@@ -255,7 +255,8 @@ class App {
     init(){
         // const axesHelper = new THREE.AxesHelper( 5 );
         // this.scene.add( axesHelper );  
-        this.loadTunnel();
+        this.loadGLTF('spaceRoom');
+        this.loadGLTF('drone')
         // this.loadImage();
         // this.addDatGUI();
         // this.loadBackground();
@@ -312,23 +313,36 @@ class App {
         this.scene.add( this.image );
     }
 
-    loadTunnel(){
+    loadGLTF(model){
         const loader = new GLTFLoader( ).setPath('./assets/');
         const self = this;
 		
 		// Load a glTF resource
 		loader.load(
 			// resource URL
-			'spaceRoom.glb',
+			model+'.glb',
 			// called when the resource is loaded
 			function ( gltf ) {
                 
-                gltf.scene.name = 'spaceRoom'    
-                self.spaceRoom = gltf.scene;
+                gltf.scene.name = model   
+                self.model = gltf.scene;
                 // self.spaceRoom.rotateY(Math.PI/2)
                 // self.spaceRoom.scale.set(0.5,0.5,0.5)
-                self.spaceRoom.position.set(0,-0.5,0)
-				self.scene.add( self.spaceRoom );                
+                if(model == 'spaceRoom') {
+
+                    self.model.position.set(0,-0.5,0)
+                } else {
+                    gltf.scene.traverse( ( child ) => {
+                        if (child.isMesh){
+                            child.material.metalness = 0.5;
+                        }
+
+                    })
+                    // self.model.add(self.camera)
+                    self.model.scale.set(0.1,0.1,0.1)
+                    self.model.position.set(0,2,4)
+                }
+				self.scene.add( self.model );                
                 self.loadingBar.visible = false;         
 				
 				self.renderer.setAnimationLoop( self.render.bind(self));
@@ -353,6 +367,10 @@ class App {
         if ( this.renderer.xr.isPresenting ){
             this.gestures.update();
             
+        }
+        if(this.scene.getObjectByName('drone')) {
+
+            this.scene.getObjectByName('drone').children[0].rotation.y += 0.01
         }
         this.stats.update();
         this.renderer.render( this.scene, this.camera );
