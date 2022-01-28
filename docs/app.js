@@ -19,7 +19,7 @@ class App {
         this.camera.lookAt(0,0,0)
         
 		this.scene = new THREE.Scene();
-        this.scene.background = new THREE.Color( 0xaaaaaa );
+        this.scene.background = new THREE.Color( 0x000000 );
         
 		this.ambient = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 4);
 		this.scene.add(this.ambient);
@@ -52,7 +52,7 @@ class App {
         this.setupXR();
         
         this.controls = new OrbitControls( this.camera, this.renderer.domElement );
-        this.controls.target.set(0, 0, 0);
+        // this.controls.target.set(0, 0, 0);
         this.controls.maxDistance = 10;
         this.controls.minDistance = 5;
         this.controls.minPolarAngle = 1.3; // radians
@@ -194,19 +194,31 @@ class App {
 
     onKeyDown(e){
             
-            if(e.keyCode == 37) {
-                this.camera.position.x -= 0.1;
+        if(e.keyCode == 37 && this.camera.position.x >= -3 ) {
+            this.camera.position.x -= 0.1;
+            console.log(this.camera.position)
+        }
+        else if(e.keyCode == 38 && this.camera.position.y <=4) {
+            this.camera.position.y += 0.1;
+            console.log(this.camera.position)
 
-            }
-            else if(e.keyCode == 38) {
-                this.camera.position.z += 0.1;
-        } else if(e.keyCode == 39) {
-            this.camera.position.x += 0.1;
-        } else if(e.keyCode == 40) {
-            this.camera.position.z -= 0.1;
-        } 
+    } else if(e.keyCode == 39 && this.camera.position.x <=3) {
+        this.camera.position.x += 0.1;
+        console.log(this.camera.position)
 
+    } else if(e.keyCode == 40 && this.camera.position.y >=0) {
+        this.camera.position.y -= 0.1;
+        console.log(this.camera.position)
 
+    } else if(e.keyCode == 32 && this.camera.position.z <= 14) {
+        this.camera.position.z += 0.1;
+        console.log(this.camera.position)
+
+    } else if(e.keyCode == 13 && this.camera.position.z >= -10 ) {
+        this.camera.position.z -= 0.1;
+        console.log(this.camera.position)
+
+    } 
     }
 
     addDatGUI() {
@@ -230,13 +242,13 @@ class App {
 
     loadBackground = () => {
         // Load the images used in the background.
-        var path = "assets/cubemap/mountains/";
+        var path = "assets/cubemap/";
         
     
         let urls = [
-            path + 'posx.jpg',path + 'negx.jpg',
-            path +'posy.jpg', path +'negy.jpg',
-            path +'posz.jpg', path +'negz.jpg',
+            path + 'px.jpeg',path + 'nx.jpeg',
+            path +'py.jpeg', path +'ny.jpeg',
+            path +'pz.jpeg', path +'nz.jpeg',
           ];
         var reflectionCube = new THREE.CubeTextureLoader().load(urls);
         reflectionCube.format = THREE.RGBFormat;
